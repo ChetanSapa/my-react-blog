@@ -10,9 +10,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 
 const App = (props) => {
 
-    return (
-        <BrowserRouter>
-            <div className='app-wrapper'>
+    return (<div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
@@ -20,7 +18,7 @@ const App = (props) => {
                     <Route path={'/Profile'} render={ () => <Profile postsData={props.state.profilePage} />}/>
                 </div>
             </div>
-        </BrowserRouter>);
+    );
 }
 
 

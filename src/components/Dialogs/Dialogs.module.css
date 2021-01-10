@@ -1,6 +1,6 @@
 .dialogs {
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 3fr 9fr;
 }
 
 .dialogsItems {
@@ -15,8 +15,12 @@
     color: gold;
 }
 
-.dialog {
+.dialog img{
+    width: 50px;
+}
 
+.dialog a {
+    font-size: 16px;
 }
 
 .messages {
@@ -27,5 +31,9 @@
 }
 
 .message {
+    padding-top: 20px;
+}
 
+.message img{
+    width: 30px;
 }
