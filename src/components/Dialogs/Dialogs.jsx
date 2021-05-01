@@ -8,18 +8,21 @@ import {addMessageCreator, updateMessageDateCreator} from "../../redux/dialogsRe
 
 const Dialogs = (props) => {
 
-    let dialogElements = props.dialogsPage.dialogData.map(d => <DialogItem name={d.name} ava={d.ava} id={d.id}/>);
-    let messageElements = props.dialogsPage.messageData.map(m => <Message id={m.id} val={m.val}/>);
+    let state = props.dialogsPage
+
+    let dialogElements = state.dialogData.map(d => <DialogItem name={d.name} ava={d.ava} id={d.id}/>);
+    let messageElements = state.messageData.map(m => <Message id={m.id} val={m.val}/>);
     /*let newMessageElement = props.dialogsPage.updateMessageData*/
 
     let newMessageElement = React.createRef();
-    let sandMessage = () => {
-        props.dispatch(addMessageCreator());
+    let onSandMessageClick = () => {
+        props.sendMessage();
     }
 
     let onMessageChange = (e) => {
-        let message = newMessageElement.current.value;
-        props.dispatch(updateMessageDateCreator(message));
+        let message = e.target.value
+        props.updateNewMessageBody(message)
+
 }
 
 return (
@@ -34,7 +37,7 @@ return (
                         <textarea ref={newMessageElement} onChange={onMessageChange} name="" id="" cols="30" rows="3"/>
                     </div>
                     <div>
-                        <button onClick={sandMessage}>Send message</button>
+                        <button onClick={onSandMessageClick}>Send message</button>
                     </div>
                 </div>
             </div>
