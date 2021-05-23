@@ -1,12 +1,12 @@
 import React from 'react';
 import {addMessageCreator, updateMessageDateCreator} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
 
-
+/*
 const DialogsContainer = (props) => {
 
-    /* let state = props.store.getState().dialogsPage
+     let state = props.store.getState().dialogsPage
 
      let newMessageElement = React.createRef();
      let onSandMessageClick = () => {
@@ -15,12 +15,11 @@ const DialogsContainer = (props) => {
 
      let onMessageChange = (message) => {
          props.store.dispatch(updateMessageDateCreator(message));
-     }*/
+     }
 
     return <StoreContext.Consumer>
         {
         (store) => {
-            let state = store.getState().dialogsPage
 
             let newMessageElement = React.createRef();
             let onSandMessageClick = () => {
@@ -32,10 +31,29 @@ const DialogsContainer = (props) => {
             }
             return <Dialogs updateNewMessageBody={onMessageChange}
                             sendMessage={onSandMessageClick}
-                            dialogsPage={state}
+                            dialogsPage={store.getState().dialogsPage}
             />
         }}
     </StoreContext.Consumer>
-};
+};*/
+let mapStateToProps = (state) => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+}
+let mapDispatchToProps = (dispatch) => {
+    debugger
+    return {
+        updateNewMessageBody: (message) => {
+            dispatch(updateMessageDateCreator(message))
+        },
+        sendMessage: () => {
+            dispatch(addMessageCreator())
+        }
+    }
+}
+
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 export default DialogsContainer;

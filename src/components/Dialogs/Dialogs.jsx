@@ -2,19 +2,18 @@ import React from 'react';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import s from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
-import {addMessageCreator, updateMessageDateCreator} from "../../redux/dialogsReducer";
 
 
 const Dialogs = (props) => {
 
     let state = props.dialogsPage
 
-    let dialogElements = state.dialogData.map(d => <DialogItem name={d.name} ava={d.ava} id={d.id}/>);
-    let messageElements = state.messageData.map(m => <Message id={m.id} val={m.val}/>);
+    let dialogElements = state.dialogData.map(d => <DialogItem name={d.name} key={d.id} ava={d.ava} id={d.id}/>);
+    let messageElements = state.messageData.map(m => <Message id={m.id} val={m.val} key={m.id}/>);
     /*let newMessageElement = props.dialogsPage.updateMessageData*/
 
     let newMessageElement = React.createRef();
+
     let onSandMessageClick = () => {
         props.sendMessage();
     }
