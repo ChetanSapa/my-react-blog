@@ -3,7 +3,6 @@ import dialogsReducer from "./dialogsReducer";
 
 let store = {
     _state: {
-
         dialogsPage: {
             dialogData: [
                 {id: 1, name: "Matthew", ava: "https://pbs.twimg.com/media/C5TmS81W8AET_95.jpg"},
@@ -43,13 +42,6 @@ let store = {
         this._callSubscriber(this._state);
     }
 }
-
-
-
-
-
-
-
 export default store
 
 window.store = store
