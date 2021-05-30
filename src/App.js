@@ -6,9 +6,9 @@ import Profile from './components/Profile/Profile';
 import { Route } from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
+import Users from "./components/Users/Users";
 
-
-const App = (props) => {
+const App = () => {
 
     return (<div className='app-wrapper'>
             <Header/>

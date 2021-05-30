@@ -42,7 +42,6 @@ let mapStateToProps = (state) => {
     }
 }
 let mapDispatchToProps = (dispatch) => {
-    debugger
     return {
         updateNewMessageBody: (message) => {
             dispatch(updateMessageDateCreator(message))

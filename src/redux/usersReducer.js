@@ -3,7 +3,11 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
 let initialState = {
-    users: [],
+    users: [
+        // {id: 1, photoUrl: '', followed: true, name: 'Igor', status: 'I am boss', country: 'Moscow'},
+        // {id: 2, photoUrl: '', followed: false, name: 'John', status: 'I am boss', country: 'London'},
+        // {id: 3, photoUrl: '', followed: true, name: 'Bob', status: 'I am boss', country: 'New York'},
+    ],
 }
 
 const userReducer = (state = initialState, action) => {
@@ -35,7 +39,7 @@ const userReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const followAC = (userId) => ({type: FOLLOW, userId})
+export const followAc = (userId) => ({type: FOLLOW, userId})
 export const unFollowAc = (userId) => ({type: UNFOLLOW, userId})
 export const setUsersAc = (users) => ({type: SET_USERS , users})
 
