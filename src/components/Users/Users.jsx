@@ -21,7 +21,7 @@ const Users = (props) => {
                              }}>{p}</span>
             })}
         </div>
-        <div >
+        <div>
             {
                 props.users.map(u => <div key={u.id}>
                 <span>
@@ -33,12 +33,10 @@ const Users = (props) => {
                     </div>
                     <div>
                         {u.followed
-                            ? <button onClick={() => {
-                                props.unFollow(u.id)
-                            }}>Unfollow</button>
-                            : <button onClick={() => {
-                                props.isFollow(u.id)
-                            }}>Follow</button>}
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                      onClick={() => {props.unfollow(u.id)}}>Unfollow</button>
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                      onClick={() => {props.follow(u.id)}}>Follow</button>}
                     </div>
                 </span>
                     <span>
