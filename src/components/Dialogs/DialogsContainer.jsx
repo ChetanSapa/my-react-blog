@@ -2,6 +2,7 @@ import React from 'react';
 import {addMessageCreator, updateMessageDateCreator} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 /*
 const DialogsContainer = (props) => {
@@ -38,9 +39,14 @@ const DialogsContainer = (props) => {
 };*/
 let mapStateToProps = (state) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
     }
 }
+
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
+
+
+
 let mapDispatchToProps = (dispatch) => {
     return {
         updateNewMessageBody: (message) => {
@@ -53,6 +59,6 @@ let mapDispatchToProps = (dispatch) => {
 }
 
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
 
 export default DialogsContainer;

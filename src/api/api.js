@@ -24,10 +24,19 @@ export const usersAPI = {
     unfollow (userId) {
         return instance.delete(`follow?${userId}`,  {
         })
-    }
+    },
+    getProfile(userId) {
+        return instance.get(`profile/` + userId)
 
+    }
 }
 
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`, {
+        })
+    }
+}
 // export const getUsers = (currentPage, pageSize = 4) => {
 //     return instance.get(`users?page=${currentPage}&count=${pageSize}`, {
 //         withCredentials: true
