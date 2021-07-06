@@ -44,9 +44,15 @@ export const profileAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`, {
+        return instance.get(`auth/me`)
+    },
+    login(email, password, rememberMe = false) {
+        return instance.post(`auth/login`, {email, password, rememberMe
         })
-    }
+    },
+    logout() {
+        return instance.delete(`auth/login`)
+    },
 }
 // export const getUsers = (currentPage, pageSize = 4) => {
 //     return instance.get(`users?page=${currentPage}&count=${pageSize}`, {
