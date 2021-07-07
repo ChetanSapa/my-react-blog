@@ -4,11 +4,10 @@ import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/validation/validators";
 import {Textarea} from "../../common/FormControls/FormControls";
-import styles from '../../common/FormControls/FormControls.module.css'
 
-const MyPosts = (props) => {
-
-    let postElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />)
+const MyPosts = React.memo(props => {
+    console.log('Render')
+    let postElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
     let onAddPost = (values) => {
         props.addPost(values.newPostBody)
@@ -21,11 +20,11 @@ const MyPosts = (props) => {
                 <AddPostFormRedux onSubmit={onAddPost}/>
             </div>
             <div className={s.posts}>
-                { postElements }
+                {postElements}
             </div>
         </div>
     )
-}
+});
 
 //create Form with redux-form
 
