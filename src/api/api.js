@@ -1,27 +1,27 @@
 import axios from "axios";
+import {savePhoto} from "../redux/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'API-KEY': '8dddc296-fc0d-42d5-9d28-b2eef5446365'}
+        'API-KEY': '8dddc296-fc0d-42d5-9d28-b2eef5446365'
+    }
 })
 
 export const usersAPI = {
-    getUsers (currentPage, pageSize = 4) {
+    getUsers(currentPage, pageSize = 4) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`, {
             withCredentials: true
         }).then(response => {
             return response.data
         })
     },
-    follow (userId)  {
-        return instance.post(`follow?${userId}`, {}, {
-        })
+    follow(userId) {
+        return instance.post(`follow?${userId}`, {}, {})
     },
-    unfollow (userId) {
-        return instance.delete(`follow?${userId}`,  {
-        })
+    unfollow(userId) {
+        return instance.delete(`follow?${userId}`, {})
     },
     getProfile(userId) {
         console.warn('Obsolete method. Please use profileAPI obj')
@@ -39,6 +39,18 @@ export const profileAPI = {
     },
     updateStatus(status) {
         return instance.put(`profile/status/`, {status: status})
+    },
+    savePhoto(photoFile) {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+        return instance.put(`profile/photo/`, formData,{
+            header: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+    saveProfile(profile) {
+        return instance.put(`profile/`, profile)
     }
 }
 
@@ -47,7 +59,8 @@ export const authAPI = {
         return instance.get(`auth/me`)
     },
     login(email, password, rememberMe = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe
+        return instance.post(`auth/login`, {
+            email, password, rememberMe
         })
     },
     logout() {
