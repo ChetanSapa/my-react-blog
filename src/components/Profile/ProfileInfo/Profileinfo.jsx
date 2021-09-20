@@ -19,7 +19,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     }
 
     const onSubmit = (formData) => {
-        saveProfile(formData).then(()=>{
+        saveProfile(formData).then(() => {
             setEditMode(false)
         })
     }
@@ -27,7 +27,9 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, savePro
     return <div>
         <div>
             <img
-                src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350'/>
+                src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350'
+                alt={'Some img'}
+            />
         </div>
         <img src={profile.photos.large || userPhoto} className={s.mainPhoto} alt=""/><br/>
         {isOwner && <input type={'file'} onChange={onMainPhotoSelected} style={{paddingBottom: '20px'}}/>}

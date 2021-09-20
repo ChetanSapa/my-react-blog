@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {Route, withRouter} from "react-router-dom";
@@ -17,8 +17,15 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
 class App extends React.Component {
+    catchAllUnhandedErrors = (promiseRejectionEvent) => {
+        alert('SomeError occured')
+    }
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandedErrors)
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandedErrors)
     }
 
     render() {

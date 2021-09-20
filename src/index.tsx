@@ -4,17 +4,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 
 // let rerenderEntireTree = () => {
     ReactDOM.render(
-        <HashRouter basename={process.env.PUBLIC_URL}>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             < Provider store={store}>
                 <App />
             </Provider>
-        </HashRouter>, document.getElementById('root'));
+        </BrowserRouter>, document.getElementById('root'));
 // }
 //
 // rerenderEntireTree()
