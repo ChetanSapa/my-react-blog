@@ -15,15 +15,33 @@ import {
     getPageSize,
     getTotalUsersCount, getUsers
 } from "../../redux/usersSelectors";
+import {UsersType} from "../../types/types";
+import {AppStateType} from "../../redux/redux-store";
 
-class UsersContainer extends React.Component {
+type MapStatePropsType = {
+    currentPage: number
+    pageSize: number
+    isFetching: boolean
+    totalUsersCount: number
+    users: Array<UsersType>
+    followingInProgress: Array<number>
+}
 
+type MapDispatchPropsType = {
+    getUsers: (currentPage: number, pageSize: number) => void
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         let {currentPage, pageSize} = this.props
         this.props.getUsers(currentPage, pageSize)
     }
 
-    onPageChanged = (pageNumber) => {
+    onPageChanged = (pageNumber: number) => {
         const {pageSize} = this.props
         this.props.getUsers(pageNumber, pageSize)
     }
@@ -41,12 +59,11 @@ class UsersContainer extends React.Component {
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
                    followingInProgress={this.props.followingInProgress}
-                   setProgress={this.props.setProgress}
             />
         </>
     }
 }
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -58,10 +75,7 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default compose(connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    setProgress,
-    getUsers: requestUsers
-}))(UsersContainer)
+export default compose(
+// <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, setProgress, getUsers: requestUsers})
+)(UsersContainer)
