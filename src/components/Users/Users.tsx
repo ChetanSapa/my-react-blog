@@ -14,7 +14,14 @@ type PropsType = {
     follow: (userId: number) => void
 }
 
-const Users: React.FC<PropsType> = ({pageSize, totalUsersCount, onPageChanged, currentPage, users, ...props}) => {
+const Users: React.FC<PropsType> = ({
+                                        pageSize,
+                                        totalUsersCount,
+                                        onPageChanged,
+                                        currentPage,
+                                        users, ...props
+                                    }) => {
+    console.log(users)
     return <div>
         <Paginator
             pageSize={pageSize}
@@ -29,8 +36,12 @@ const Users: React.FC<PropsType> = ({pageSize, totalUsersCount, onPageChanged, c
                                  unfollow={props.unfollow}
                                  follow={props.follow}
                 />
+
             )
 
+        }
+        {
+            console.log(users, '+')
         }
     </div>
 }
