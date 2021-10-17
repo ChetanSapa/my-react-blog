@@ -74,6 +74,5 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default compose(
-// <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
     connect(mapStateToProps, {follow, unfollow, getUsers: requestUsers})
 )(UsersContainer)

@@ -4,7 +4,9 @@ import userPhoto from '../../assets/img/images.jpg'
 import {NavLink} from "react-router-dom";
 
 const User = ({user, followingInProgress, unfollow, follow}) => {
+    console.log(user, '-')
     return <div>
+        <span>{user.id}</span>
                 <span>
                     <div>
                         <NavLink to={'/profile/' + user.id}>
