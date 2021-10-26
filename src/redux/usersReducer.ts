@@ -19,12 +19,6 @@ const userReducer = (state = initialState, action: ActionsTypes): InitialStateTy
             return {
                 ...state,
                 users: updateObjInArr(state.users, action.userId, 'id', {followed: true})
-                // users: state.users.map(u => {
-                //     if (u.id === action.userId) {
-                //         return {...u, followed: true};
-                //     }
-                //     return u
-                // })
             }
         case 'UNFOLLOW':
             return {
@@ -32,7 +26,7 @@ const userReducer = (state = initialState, action: ActionsTypes): InitialStateTy
                 users: updateObjInArr(state.users, action.userId, 'id', {followed: false})
             }
         case 'SET_USERS': {
-            return {...state, users:[ action.users]}
+            return {...state, users:action.users}
         }
         case 'SET_CURRENT_PAGE': {
             return {...state, currentPage: action.currentPage}
@@ -56,12 +50,10 @@ const userReducer = (state = initialState, action: ActionsTypes): InitialStateTy
     }
 }
 
-type ActionsTypes = InferActionsTypes<typeof actions>
-
 export const actions = {
     followSuccess: (userId: number) => ({type: 'FOLLOW', userId} as const),
     unFollowSuccess: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
-    setUsers: (users: UsersType) => ({type: 'SET_USERS', users} as const),
+    setUsers: (users: Array<UsersType>) => ({type: 'SET_USERS', users} as const),
     setCurrentPage: (currentPage: number) => ({type: 'SET_CURRENT_PAGE', currentPage} as const),
     setTotalUsersCount: (totalCount: number) => ({type: 'SET_TOTAL_COUNT', totalCount} as const),
     toggleIsFetching: (isFetching: boolean) => ({type: 'TOGGLE_IS_FETCHING', isFetching} as const),
@@ -70,16 +62,13 @@ export const actions = {
 
 export const requestUsers = (page: number, pageSize: number): ThunkType => {
     return async (dispatch, getState:GetStateType) => {
-        let a = getState().usersPage.users
         // dispatch(toggleIsFetching(true))
         dispatch(actions.setCurrentPage(page))
 
         let data = await usersAPI.getUsers(page, pageSize)
-
         dispatch(actions.toggleIsFetching(false))
         dispatch(actions.setUsers(data.items))
         dispatch(actions.setTotalUsersCount(data.totalCount))
-        console.log(data.items)
     }
 }
 
@@ -107,4 +96,5 @@ export default userReducer;
 
 type InitialStateType = typeof initialState
 type GetStateType = () => AppStateType
+type ActionsTypes = InferActionsTypes<typeof actions>
 type ThunkType = BaseThunkType<ActionsTypes>

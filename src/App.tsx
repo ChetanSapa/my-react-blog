@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, ComponentType} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {Route, withRouter} from "react-router-dom";
@@ -12,12 +12,21 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
+import {AppStateType} from "./redux/redux-store";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
-class App extends React.Component {
-    catchAllUnhandedErrors = (promiseRejectionEvent) => {
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    initializeApp: () => void
+}
+
+const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedProfile = withSuspense(UsersContainer)
+
+class App extends React.Component<MapPropsType & DispatchPropsType> {
+    catchAllUnhandedErrors = (e: PromiseRejectionEvent) => {
         alert('SomeError occured')
     }
     componentDidMount() {
@@ -37,10 +46,10 @@ class App extends React.Component {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path={'/dialogs'}
-                           render={withSuspense(DialogsContainer)}/>
+                           render={() => <SuspendedDialogs/>}/>
                     <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                     <Route path={'/users'}
-                           render={withSuspense(UsersContainer)}/>
+                           render={() => <SuspendedProfile/>}/>
                     <Route path={'/login'} render={() => <LoginPage/>}/>
                 </div>
             </div>
@@ -48,10 +57,10 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
