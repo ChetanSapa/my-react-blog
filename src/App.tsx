@@ -1,4 +1,4 @@
-import React, {Component, ComponentType} from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {Route, withRouter} from "react-router-dom";
@@ -47,7 +47,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                 <div className='app-wrapper-content'>
                     <Route path={'/dialogs'}
                            render={() => <SuspendedDialogs/>}/>
-                    <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
+                    <Route path={'/profile/:userId?'}
+                           render={() => <ProfileContainer/>}/>
                     <Route path={'/users'}
                            render={() => <SuspendedProfile/>}/>
                     <Route path={'/login'} render={() => <LoginPage/>}/>

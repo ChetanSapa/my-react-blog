@@ -1,7 +1,7 @@
 import React from 'react';
 import './Nav.css';
 
-const Nav = () => {
+const Nav: React.FC = () => {
     return <nav className='nav'>
         <div>
             <a href="#">Profile</a>

@@ -10,7 +10,6 @@ let initialState = {
     ] as Array<PostType>,
     profile: null as ProfileType | null,
     status: '',
-    newPostText: ''
 }
 
 const profileReducer = (state = initialState, action: ActionsType): initialStateType => {
@@ -24,7 +23,6 @@ const profileReducer = (state = initialState, action: ActionsType): initialState
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: '',
             }
         }
         case 'profile/DELETE_POST':

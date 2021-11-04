@@ -18,7 +18,7 @@ export enum ResultCodeForCaptcha {
 }
 
 export type GetItemsType= {
-    items: UsersType
+    items: Array<UsersType>
     totalCount: number
     error: string | null
 }

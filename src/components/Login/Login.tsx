@@ -1,6 +1,6 @@
 import React from "react";
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {createField, Input} from "../common/FormControls/FormControls";
+import {createField, GetStringKeys, Input} from "../common/FormControls/FormControls";
 import {required} from "../../utils/validation/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/authReducer";
@@ -42,14 +42,14 @@ type MapDispatchPropsType = {
     login: (email: string, password: string, rememberMe: boolean, captcha: any) => void
 }
 
-type LoginFormValuesType = {
+export type LoginFormValuesType = {
     email: string
     password: string
     rememberMe: boolean
     captcha: any
 }
 
-type LoginFormValuesKeysType = Extract<keyof LoginFormValuesType, string>
+type LoginFormValuesKeysType = GetStringKeys<LoginFormValuesType>
 
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     const onSubmit = (formData: LoginFormValuesType) => {
