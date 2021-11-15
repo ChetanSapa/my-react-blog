@@ -4,18 +4,19 @@ import Navbar from './components/Navbar/Navbar';
 import {Route, withRouter} from "react-router-dom";
 // import DialogsContainer from "./components/Dialogs/DialogsContainer";
 // import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+// import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderComponent from "./components/Header/HeaderContainer";
-import LoginPage from "./components/Login/Login";
+import {LoginPage} from "./components/Login/LoginPage";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
 import {AppStateType} from "./redux/redux-store";
+import {UserPage} from "./components/Users/UsersContainer";
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -23,7 +24,7 @@ type DispatchPropsType = {
 }
 
 const SuspendedDialogs = withSuspense(DialogsContainer)
-const SuspendedProfile = withSuspense(UsersContainer)
+const SuspendedProfile = withSuspense(ProfileContainer)
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
     catchAllUnhandedErrors = (e: PromiseRejectionEvent) => {
@@ -48,9 +49,9 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                     <Route path={'/dialogs'}
                            render={() => <SuspendedDialogs/>}/>
                     <Route path={'/profile/:userId?'}
-                           render={() => <ProfileContainer/>}/>
-                    <Route path={'/users'}
                            render={() => <SuspendedProfile/>}/>
+                    <Route path={'/users'}
+                           render={() => <UserPage/>}/>
                     <Route path={'/login'} render={() => <LoginPage/>}/>
                 </div>
             </div>
